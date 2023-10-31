@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://xde-webclub.github.io/blog</id>
+    <title>xde-web Blog</title>
+    <updated>2023-10-31T16:10:13.000Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://xde-webclub.github.io/blog"/>
+    <subtitle>xde-web Blog</subtitle>
+    <icon>https://xde-webclub.github.io/img/github.svg</icon>
+    <entry>
+        <title type="html"><![CDATA[2023年10月更新]]></title>
+        <id>https://xde-webclub.github.io/blog/2023年10月更新</id>
+        <link href="https://xde-webclub.github.io/blog/2023年10月更新"/>
+        <updated>2023-10-31T16:10:13.000Z</updated>
+        <summary type="html"><![CDATA[提交初版教程]]></summary>
+        <content type="html"><![CDATA[<p>提交初版教程</p>]]></content>
+    </entry>
+</feed>
