@@ -1,7 +1,7 @@
 ---
 slug: /
+sidebar_position: 1
 ---
-
 # Python的历史和发展
 
 Python 国内用户多读作“派桑”。
