@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://xde-webclub.github.io/course/blog</id>
     <title>xde-web Blog</title>
-    <updated>2023-11-20T09:34:46.000Z</updated>
+    <updated>2023-11-23T06:33:10.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://xde-webclub.github.io/course/blog"/>
     <subtitle>xde-web Blog</subtitle>
@@ -11,7 +11,7 @@
         <title type="html"><![CDATA[更新日记]]></title>
         <id>https://xde-webclub.github.io/course/blog/2023年10月更新</id>
         <link href="https://xde-webclub.github.io/course/blog/2023年10月更新"/>
-        <updated>2023-11-20T09:34:46.000Z</updated>
+        <updated>2023-11-23T06:33:10.000Z</updated>
         <summary type="html"><![CDATA[2023年10月提交初版教程]]></summary>
         <content type="html"><![CDATA[<p>2023年10月提交初版教程</p><p>2023年11月整理Python基础与进阶大纲，优化首页样式</p>]]></content>
     </entry>
