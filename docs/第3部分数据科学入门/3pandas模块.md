@@ -1,21 +1,28 @@
 
-Pandas是Python的一个用于数据分析的库： <http://pandas.pydata.org>
 
-API速查：<http://pandas.pydata.org/pandas-docs/stable/api.html>
+# Pandas数据分析
+
+Pandas是Python的一个用于数据分析的库： http://pandas.pydata.org
+
+API速查：http://pandas.pydata.org/pandas-docs/stable/api.html
 
 基于NumPy,SciPy的功能，在其上补充了大量的数据操作（Data Manipulation）功能。
 
 统计、分组、排序、透视表自由转换，如果你已经很熟悉结构化数据库（RDBMS）与Excel的功能，就会知道Pandas有过之而无不及！
 
+
 ## 为啥用Pandas?
+
 
 普通的程序员看到一份数据会怎么做？
 
-```python
+
+```python 
 iris_file = '../data/numpy/iris.data.txt'
 ```
 
-```python
+
+```python 
 with open(iris_file, 'r', encoding='utf-8') as f:
     lines = f.readlines()
 
@@ -25,11 +32,13 @@ for idx, line in enumerate(lines):
         break
 ```
 
+
 Pandas的意义就在于
 
 ### 快速的识别结构化数据
 
-```python
+
+```python 
 import numpy as np
 import scipy as sp
 import pandas as pd
@@ -38,48 +47,61 @@ data = pd.read_csv(iris_file, header=None, encoding='utf-8')
 data
 ```
 
+
 ### 快速的操作元数据
 
-```python
+
+```python 
 cnames = ['sepal_length', 'sepal_width', 'petal_length', 'petal_width', 'class']
 data.columns = cnames
 data
 ```
 
+
 ### 快速过滤
 
-```python
+
+```python 
 data[data['petal_width'] == data.petal_width.max()]
 ```
 
+
 ### 快速切片
 
-```python
+
+```python 
 data.iloc[::30, :2]
 ```
 
+
 ### 快速统计
 
-```python
+
+```python 
 data['class'].value_counts()
 ```
 
-```python
+
+```python 
 for x in range(4):
     s = data.iloc[:,x]
     print('{0:<12}'.format(s.name), " Statistics: ",
     '{0:>5}  {1:>5}  {2:>5}  {3:>5}'.format(s.max(), s.min(), round(s.mean(),2),round(s.std(),2)))
 ```
 
+
 ### 快速“MapReduce”
 
-```python
+
+```python 
 slogs = lambda x:np.log(x)*x
 entpy = lambda x:np.exp((slogs(x.sum())-x.map(slogs).sum())/x.sum())
 data.groupby('class').agg(entpy)
 ```
 
+
 # 1. Pandas(大熊猫)基础
+
 
 Pandas的重要数据类型
 
@@ -87,48 +109,60 @@ Pandas的重要数据类型
 * Series(一维序列)
 * Index(行索引，行级元数据)
 
+
 ### 1.1 Series：pandas的长枪(数据表中的一列或一行,观测向量,一维数组...)
 
 数据世界中对于任意一个个体的全面观测，或者对于任意一组个体某一属性的观测，全部可以抽象为Series的概念。
+
 
 用值构建一个Series：
 
 由默认index和values组成。
 
-```python
+
+```python 
 series1 = pd.Series(np.random.randn(4))
 series1
 ```
 
-```python
+
+```python 
 print(type(series1))
 print(series1.index)
 print(series1.values)
 ```
 
-#### Series支持过滤的原理就如同NumPy
 
-```python
+#### Series支持过滤的原理就如同NumPy：
+
+
+```python 
 series1 > 0
 ```
 
-```python
+
+```python 
 series1[series1 > 0]
 ```
 
-#### 当然也支持Broadcasting
 
-```python
+#### 当然也支持Broadcasting：
+
+
+```python 
 series1*2
 ```
 
-```python
+
+```python 
 series1+5
 ```
 
-#### 以及Universal Function
 
-```python
+#### 以及Universal Function：
+
+
+```python 
 print(series1)
 print(np.exp(series1))
 
@@ -137,9 +171,11 @@ f_np = np.frompyfunc(lambda x:np.exp(x*2 + 5), 1, 1)
 f_np(series1)
 ```
 
+
 在序列上就使用行标，而不是创建一个2列的数据表，能够轻松辨别哪里是数据，哪里是元数据：
 
-```python
+
+```python 
 series2 = pd.Series(series1.values, index=['norm_' + str(i) for i in range(4)])
 print(series2, type(series2))
 print(series2.index)
@@ -148,31 +184,39 @@ print(series2.values)
 series2
 ```
 
+
 虽然行是有顺序的，但是仍然能够通过行级的index来访问到数据：
 
 （当然也不尽然像Ordered Dict，因为行索引甚至可以重复，不推荐重复的行索引不代表不能用）
 
-```python
+
+```python 
 series2[['norm_0','norm_3']]
 ```
 
-```python
+
+```python 
 'norm_0' in series2
 ```
 
-```python
+
+```python 
 'norm_6' in series2
 ```
 
+
 默认行索引就像行号一样：
 
-```python
+
+```python 
 series1.index
 ```
 
+
 从Key不重复的Ordered Dict或者从Dict来定义Series就不需要担心行索引重复：
 
-```python
+
+```python 
 s_dict = {"Japan":"Tokyo", "Korea":"Seoul", "China":"Beijing"}
 series3 = pd.Series(s_dict)
 
@@ -181,54 +225,66 @@ print(series3.values)
 series3
 ```
 
+
 与Dict区别一： 有序
 
-```python
+
+```python 
 lst = ["Japan", "China", "Singapore", "Korea"]
 series4 = pd.Series(s_dict, index =lst)
 series4
 ```
 
-```python
+
+```python 
 print(series4.values)
 print(series4.index)
 print(series4.isnull())
 print(series4.notnull())
 ```
 
+
 与Dict区别二： index内值可以重复，尽管不推荐。
 
-```python
+
+```python 
 lst = ['A', 'B', 'B', 'C']
 series5 = pd.Series(series1.values, index=lst)
 series5
 ```
 
-```python
+
+```python 
 series5[['B', 'A']]
 ```
+
 
 整个序列级别的元数据信息：name
 
 当数据序列以及index本身有了名字，就可以更方便的进行后续的数据关联啦！
 
-```python
+
+```python 
 series4.name
 ```
 
-```python
+
+```python 
 series4.index.name
 ```
 
-```python
+
+```python 
 series4.name = "Capital Series"
 series4.index.name = "Nation"
 series4
 ```
 
-```python
+
+```python 
 pd.DataFrame(series4)
 ```
+
 
 ### 1.2 DataFrame：pandas的战锤(数据表，二维数组)
 
@@ -236,9 +292,11 @@ Series的有序集合，就像R的DataFrame一样方便。
 
 仔细想想，绝大部分的数据形式都可以表现为DataFrame。
 
+
 #### 从Numpy二维数组、从文件或者从数据库定义：数据虽好，勿忘列名
 
-```python
+
+```python 
 data_np = np.asarray([('Japan', 'Tokyo', 4000),
                       ('Korea', 'Seoul', 1300),
                       ('China', 'Beijing', 9100)])
@@ -246,9 +304,11 @@ df1 = pd.DataFrame(data_np, columns=['nation','capital','GDP'])
 df1
 ```
 
+
 #### 等长的列数据保存在一个字典里（JSON）：很不幸，字典key是无序的
 
-```python
+
+```python 
 data_dict = {'nation': ['Japan', 'Korea', 'China'],
              'capital': ['Tokyo', 'Seoul', 'Beijing'],
              'GDP': [4900, 1300, 9100]}
@@ -256,62 +316,77 @@ df2 = pd.DataFrame(data_dict)
 df2
 ```
 
-#### 从另一个DataFrame定义DataFrame：啊，强迫症犯了
 
-```python
+#### 从另一个DataFrame定义DataFrame：啊，强迫症犯了！
+
+
+```python 
 df21 = pd.DataFrame(df2, columns=['nation', 'capital', 'GDP'])
 df21
 ```
 
-```python
+
+```python 
 df22 = pd.DataFrame(df2, columns=['nation', 'capital', 'GDP'], index = [2, 0, 1])
 df22
 ```
+
 
 #### 从DataFrame中取出列？两种方法（与JavaScript完全一致！）
 
 * '.'的写法容易与其他预留关键字产生冲突
 * '[ ]'的写法最安全。
 
-```python
+
+```python 
 print(df22.nation)
 print(df22.capital)
 print(df22['GDP'])
 ```
 
-```python
+
+```python 
 df22['capital']
 ```
 
-#### 从DataFrame中取出行？（至少）两种方法
 
-```python
+#### 从DataFrame中取出行？（至少）两种方法：
+
+
+```python 
 df22[0:1] # 给出的实际是DataFrame
 ```
 
-```python
+
+```python 
 df22.iloc[0] # 通过对应Index给出行
 ```
 
+
 #### 像Numpy切片一样的终极招式：iloc
 
-```python
+
+```python 
 df22.iloc[0,:]
 ```
 
-```python
+
+```python 
 df22.iloc[:,0]
 ```
+
 
 #### 听说你从Table地狱来，大熊猫笑了
 
 然而动态增加列无法用"."的方式完成，只能用"[ ]"
 
-```python
+
+```python 
 df22['population'] = [1600, 130, 55]
 df22['region'] = 'East_Asian'
 df22
 ```
+
 
 ### 1.3 Index：pandas进行数据操作的鬼牌（行级索引）
 
@@ -330,9 +405,11 @@ Index有四种...哦不，很多种写法，一些重要的索引类型包括
 * DatetimeIndex（以时间格式作为索引）
 * PeriodIndex （含周期的时间格式作为索引）
 
+
 #### 直接定义普通索引，长得就和普通的Series一样
 
-```python
+
+```python 
 index_names = ['a','b','c']
 s = pd.Series(index_names)
 print(pd.Index(index_names))
@@ -340,135 +417,163 @@ print(pd.Index(s))
 s
 ```
 
-#### Immutable，牢记
 
+#### Immutable，牢记！
 pd.Index是不可变的
 
-```python
+
+```python 
 index_names = ['a', 'b', 'c']
 index0 = pd.Index(index_names)
 print(index0.values)
 # index0[2] = 'd' # 改变值会出错
 ```
 
-#### 扔进去一个含有多元组的List，就有了MultiIndex
 
+#### 扔进去一个含有多元组的List，就有了MultiIndex
 MyltiIndex 也是immutable的。
 
-```python
+
+```python 
 multi1 = pd.Index([['Row_' + str(x + 1), 'Col_' + str(y + 1)] for x in range(4) for y in range(4)])
 multi1.name = ('index1', 'index2')
 multi1
 ```
 
-```python
+
+```python 
 multi2 = pd.Index([('Row_' + str(x + 1), 'Col_' + str(y + 1)) for x in range(4) for y in range(4)])
 multi2
 ```
 
-```python
+
+```python 
 # multi2.name = ['index1', 'index2'] # 出错
 ```
 
-#### 对于Series来说，如果拥有了多重Index，数据，变形
+
+#### 对于Series来说，如果拥有了多重Index，数据，变形！
 
 下列代码说明：
 
 * 二重MultiIndex的Series可以unstack()成DataFrame
 * DataFrame可以stack成拥有二重MultiIndex的Series
 
-```python
+
+```python 
 data_for_multi1 = pd.Series(range(0, 16), index=multi2)
 data_for_multi1
 ```
 
-```python
+
+```python 
 data_for_multi1.unstack()
 ```
 
-```python
+
+```python 
 data_for_multi1.unstack().stack()
 ```
+
 
 我们来看一下非平衡数据的例子：
 
 Row_1,2,3,4和Col_1,2,3,4并不是全组合的。
 
-```python
+
+```python 
 multi2 = pd.Index([('Row_' + str(x), 'Col_' + str(y + 1)) for x in range(5) for y in range(x)])
 multi2
 ```
 
-```python
+
+```python 
 data_for_multi2 = pd.Series(np.arange(10), index=multi2)
 data_for_multi2
 ```
 
-```python
+
+```python 
 data_for_multi2.unstack()
 ```
 
-```python
+
+```python 
 data_for_multi2.unstack().stack()
 ```
 
+
 #### DateTime标准库如此好用，你值得拥有
 
-```python
+
+```python 
 import datetime
 dates = [datetime.datetime(2021, 1, 1), datetime.datetime(2021, 1, 8), datetime.datetime(2021, 1, 30)]
 pd.DatetimeIndex(dates)
 ```
 
+
 #### 如果你不仅需要时间格式统一，时间频率也要统一的话
 
-```python
+
+```python 
 periodindex1 = pd.period_range('2021-01', '2021-04', freq='M')
 periodindex1
 ```
+
 
 #### 月级精度和日级精度如何转换？
 
 有的公司统一以1号代表当月，有的公司统一以最后一天代表当月，转化起来很麻烦，可以asfreq
 
-```python
+
+```python 
 periodindex1.asfreq('D', how='start')
 ```
 
-```python
+
+```python 
 periodindex1.asfreq('D', how='end')
 ```
 
+
 #### 最后的最后，我要真正把两种频率的时间精度匹配上？
 
-```python
+
+```python 
 periodindex_mon = pd.period_range('2021-01', '2021-03', freq='M').asfreq('D', how='start')
 periodindex_day = pd.period_range('2021-01-01', '2021-03-01', freq='D')
 
 periodindex_mon
 ```
 
-```python
+
+```python 
 periodindex_day
 ```
 
+
 #### 粗粒度数据＋reindex＋ffill/bfill
 
-```python
+
+```python 
 full_ts = pd.Series(periodindex_mon, index=periodindex_mon).reindex(periodindex_day)
 full_ts.head()
 ```
 
-```python
+
+```python 
 full_ts = pd.Series(periodindex_mon, index=periodindex_mon).reindex(periodindex_day, method='ffill')
 full_ts.head()
 ```
+
 
 #### 关于索引，方便的操作有？
 
 前面描述过了，索引有序，重复，但一定程度上又能通过key来访问，也就是说，某些集合操作都是可以支持的。
 
-```python
+
+```python 
 index1 = pd.Index(['A', 'B', 'B', 'C', 'C'])
 index2 = pd.Index(['C', 'D', 'E', 'E', 'F'])
 index3 = pd.Index(['B', 'C', 'A'])
@@ -484,16 +589,21 @@ print(index1.is_monotonic, index2.is_monotonic, index3.is_monotonic)
 print(index1.is_unique, index2.is_unique, index3.is_unique)
 ```
 
+
 # 2. Pandas的I/O
+
 
 老生常谈，从基础来看，我们仍然关心pandas对于与外部数据是如何交互的。
 
+
 ### 2.1 结构化数据输入输出
+
 
 * read_csv与to_csv 是一对输入输出的工具，read_csv直接返回pandas.DataFrame，而to_csv只要执行命令即可写文件
   * read_table：功能类似
   * read_fwf：操作fixed width file
 * read_excel与to_excel方便的与excel交互
+
 
 还记得刚开始的例子吗？
 
@@ -503,15 +613,17 @@ print(index1.is_unique, index2.is_unique, index3.is_unique)
 
 提问：下列例子中，header=4，names=cnames时，究竟会读到怎样的数据？
 
-```python
+
+```python 
 print('cnames:', cnames)
 irisdata = pd.read_csv(iris_file, header=None, names=cnames, encoding='utf-8')
 irisdata[::30]
 ```
 
+
 希望了解全部参数的请移步API：
 
-<http://pandas.pydata.org/pandas-docs/stable/generated/pandas.read_csv.html#pandas.read_csv>
+http://pandas.pydata.org/pandas-docs/stable/generated/pandas.read_csv.html#pandas.read_csv
 
 这里介绍一些常用的参数：
 
@@ -533,25 +645,33 @@ irisdata[::30]
 * index_col：将真实的某列（列的数目，甚至列名）当作index
 * squeeze：仅读到一列时，不再保存为pandas.DataFrame而是pandas.Series
 
+
+
 ### 2.1.x Excel ... ?
 
 对于存储着极为规整数据的Excel而言，其实是没必要一定用Excel来存，尽管Pandas也十分友好的提供了I/O接口。
 
-```python
+
+
+```python 
 iris_excel_file = 'irisdata.xls'
 irisdata.to_excel(iris_excel_file, index=None)
 irisdata_from_excel = pd.read_excel(iris_excel_file, header=0)
 irisdata_from_excel[::30]
 ```
 
-```python
+
+```python 
 import os
 os.remove(iris_excel_file)
 ```
 
+
 唯一重要的参数：sheetname=k，标志着一个excel的第k个sheet页将会被取出。（从0开始）
 
+
 ### 2.2 半结构化数据
+
 
 JSON：网络传输中常用的一种数据格式。
 
@@ -561,7 +681,8 @@ JSON：网络传输中常用的一种数据格式。
 * 关联键可能并不唯一
 * 元数据被保存在数据里
 
-```python
+
+```python 
 import json
 json_data = [{'name': 'Wang', 'sal': 50000, 'job': 'VP'},
              {'name': 'Zhang', 'job': 'Manager', 'report': 'VP'},
@@ -571,13 +692,19 @@ data_employee_ri = data_employee.reindex(columns=['name', 'job', 'sal', 'report'
 data_employee_ri
 ```
 
-```python
+
+
+
+
+```python 
 
 ```
+
 
 | [03_data_science/08_Pandas数据操作.ipynb](https://github.com/shibing624/python-tutorial/blob/master/03_data_science/08_Pandas数据操作.ipynb)  | Pandas操作  |[Open In Colab](https://colab.research.google.com/github/shibing624/python-tutorial/blob/master/03_data_science/08_Pandas数据操作.ipynb) |
 
 # 3. Pandas数据操作
+
 
 在第一部分的基础上，数据会有更多种操作方式：
 
@@ -588,19 +715,24 @@ data_employee_ri
 * 缺失值处理
 * 与Excel一样灵活的数据透视表（在第四部分更详细介绍）
 
+
 ### 3.1 数据整合：方便灵活
+
 
 ### 3.1.1 横向拼接：直接DataFrame
 
-```python
+
+```python 
 import numpy as np
 import pandas as pd
 pd.DataFrame([np.random.rand(2), np.random.rand(2), np.random.rand(2)], columns=['C1', 'C2'])
 ```
 
+
 ### 3.1.2 横向拼接：Concatenate
 
-```python
+
+```python 
 import json
 json_data = [{'name': 'Wang', 'sal': 50000, 'job': 'VP'},
              {'name': 'Zhang', 'job': 'Manager', 'report': 'VP'},
@@ -611,34 +743,41 @@ data_employee_ri = data_employee.reindex(columns=['name', 'job', 'sal', 'report'
 pd.concat([data_employee_ri, data_employee_ri, data_employee_ri])
 ```
 
-```python
+
+```python 
 pd.concat([data_employee_ri, data_employee_ri, data_employee_ri],ignore_index=True)
 ```
 
+
 ### 3.1.3 纵向拼接：Merge
+
 
 根据数据列关联，使用on关键字
 
 * 可以指定一列或多列
 * 可以使用left_on和right_on
 
-```python
+
+```python 
 pd.merge(data_employee_ri, data_employee_ri, on='name')
 ```
 
-```python
+
+```python 
 pd.merge(data_employee_ri, data_employee_ri, on=['name', 'job'])
 ```
 
+
 根据index关联，可以直接使用left_index和right_index
 
-```python
+
+```python 
 data_employee_ri.index.name = 'index1'
 pd.merge(data_employee_ri, data_employee_ri, left_index=True, right_index=True)
 ```
 
-TIPS: 增加how关键字，并指定
 
+TIPS: 增加how关键字，并指定
 * how = 'inner'
 * how = 'left'
 * how = 'right'
@@ -646,39 +785,50 @@ TIPS: 增加how关键字，并指定
 
 结合how，可以看到merge基本再现了SQL应有的功能，并保持代码整洁。
 
-```python
+
+```python 
 df31_a = pd.DataFrame({'name':['老王', '老张', '老李'], 'sal':[5000, 3000, 1000]})
 df31_a
 ```
 
-```python
+
+```python 
 df31_b = pd.DataFrame({'name':['老王', '老刘'], 'job':['VP', 'Manager']})
 df31_b
 ```
 
+
 how='left': 保留左表信息
 
-```python
+
+```python 
 pd.merge(df31_a, df31_b, on='name', how='left')
 ```
 
+
 how='right': 保留右表信息
 
-```python
+
+```python 
 pd.merge(df31_a, df31_b, on='name', how='right')
 ```
 
+
 how='inner': 保留两表交集信息，这样尽量避免出现缺失值
 
-```python
+
+```python 
 pd.merge(df31_a, df31_b, on='name', how='inner')
 ```
 
+
 how='outer': 保留两表并集信息，这样会导致缺失值，但最大程度的整合了已有信息
 
-```python
+
+```python 
 pd.merge(df31_a, df31_b, on='name', how='outer')
 ```
+
 
 ### 3.2 数据清洗三剑客
 
@@ -692,7 +842,8 @@ pd.merge(df31_a, df31_b, on='name', how='outer')
 
 不要再写什么for循环了！改变思维，提高编码和执行效率
 
-```python
+
+```python 
 data_np = np.asarray([('Japan', 'Tokyo', 4000),
                       ('Korea', 'Seoul', 1300),
                       ('China', 'Beijing', 9100)])
@@ -700,9 +851,11 @@ df32 = pd.DataFrame(data_np, columns=['nation', 'capital', 'GDP'])
 df32
 ```
 
+
 ### map: 以相同规则将一列数据作一个映射，也就是进行相同函数的处理
 
-```python
+
+```python 
 def GDP_Factorize(v):
     fv = np.float64(v)
     if fv > 6000.0:
@@ -717,26 +870,33 @@ df32['NATION'] = df32.nation.map(str.upper)
 df32
 ```
 
+
 ### 类似的功能还有applymap，可以对一个dataframe里面每一个元素像map那样全局操作
 
-```python
+
+```python 
 df32.applymap(lambda x: float(x)*2 if x.isdigit() else x.upper())
 ```
+
 
 ### apply则可以对一个DataFrame操作得到一个Series
 
 他会有点像我们后面介绍的agg,但是apply可以按行操作和按列操作，用axis控制即可。
 
-```python
+
+```python 
 df32.apply(lambda x: x['nation'] + x['capital'] + '_' + x['GDP'], axis=1)
 ```
 
+
 ### 3.3 数据排序
+
 
 * sort: 按一列或者多列的值进行行级排序
 * sort_index: 根据index里的取值进行排序，而且可以根据axis决定是重排行还是列
 
-```python
+
+```python 
 data_np = np.asarray([('Japan', 'Tokyo', 4000),
                       ('Korea', 'Seoul', 1300),
                       ('China', 'Beijing', 9100)])
@@ -744,99 +904,125 @@ df33 = pd.DataFrame(data_np, columns=['nation', 'capital', 'GDP'])
 df33
 ```
 
-```python
+
+```python 
 df33.sort_values(['capital', 'nation'])
 ```
 
-```python
+
+```python 
 df33.sort_values('GDP', ascending=False)
 ```
 
-```python
+
+```python 
 df33.sort_index(axis=1, ascending=True)
 ```
 
+
 一个好用的功能：Rank
 
-```python
+
+```python 
 df33
 ```
 
-```python
+
+```python 
 df33.rank()
 ```
 
-```python
+
+```python 
 df33.rank(ascending=False)
 ```
 
-注意tied data（相同值）的处理：
 
+注意tied data（相同值）的处理：
 * method = 'average'
 * method = 'min'
 * method = 'max'
 * method = 'first'
 
-```python
+
+```python 
 df33x = pd.DataFrame({'name': ['老王', '老张', '老李', '老刘'],
                       'sal': np.array([5000, 3000, 5000, 9000])})
 df33x
 ```
 
+
 df33x.rank()默认使用method='average'，两条数据相等时，处理排名时大家都用平均值
 
-```python
+
+```python 
 df33x.sal.rank()
 ```
 
+
 method='min'，处理排名时大家都用最小值
 
-```python
+
+```python 
 df33x.sal.rank(method='min')
 ```
 
+
 method='max'，处理排名时大家都用最大值
 
-```python
+
+```python 
 df33x.sal.rank(method='max')
 ```
 
+
 method='first'，处理排名时谁先出现就先给谁较小的数值。
 
-```python
+
+```python 
 df33x.sal.rank(method='first')
 ```
 
+
 ### 3.4 缺失数据处理
 
-```python
+
+```python 
 i = pd.Index([('Row_' + str(x), 'Col_' + str(y + 1)) for x in range(5) for y in range(x)])
 data_multi = pd.Series(np.arange(10), index=i)
 df34 = data_multi.unstack()
 df34
 ```
 
+
 忽略缺失值：
 
-```python
+
+```python 
 df34.mean(skipna=True)
 ```
 
-```python
+
+```python 
 df34.mean(skipna=False)
 ```
 
+
 如果不想忽略缺失值的话，就需要祭出fillna了：
 
-```python
+
+```python 
 df34
 ```
 
-```python
+
+```python 
 df34.fillna(0).mean(axis=1, skipna=False)
 ```
 
+
 # 4. “一组”大熊猫：Pandas的groupby
+
 
 groupby的功能类似SQL的group by关键字：
 
@@ -851,9 +1037,11 @@ Pandas的groupby的灵活性：
 * 分组的关键字可以来自于index，也可以来自于真实的列数据
 * 分组规则可以通过一列或者多列
 
+
 分组的具体逻辑
 
-```python
+
+```python 
 iris_file = '../data/numpy/iris.data.txt'
 cnames = ['sepal_length', 'sepal_width', 'petal_length', 'petal_width', 'class']
 
@@ -861,32 +1049,38 @@ irisdata = pd.read_csv(iris_file, names=cnames, encoding='utf-8')
 irisdata
 ```
 
-```python
+
+```python 
 irisdata_group = irisdata.groupby('class')
 irisdata_group
 ```
 
-```python
+
+```python 
 for level, subsetDF in irisdata_group:
     print(level)
     print(subsetDF[::20])
 ```
+
 
 分组可以快速实现MapReduce的逻辑
 
 * Map: 指定分组的列标签，不同的值就会被扔到不同的分组处理
 * Reduce: 输入多个值，返回一个值，一般可以通过agg实现，agg能接受一个函数
 
-```python
+
+```python 
 irisdata.groupby('class').agg(lambda x:((x - x.mean())**3).sum() * (len(x) - 0.0) / 
                 (len(x) - 1.0) / (len(x) - 2.0) / (x.std() * np.sqrt((len(x) - 0.0) / 
                                                                      (len(x)-1.0)))**3 if len(x) > 2 else None)
 ```
 
-```python
+
+```python 
 import scipy.stats
 irisdata.groupby('class').agg(scipy.stats.skew)
 ```
+
 
 #### 汇总之后的广播操作
 
@@ -894,9 +1088,11 @@ irisdata.groupby('class').agg(scipy.stats.skew)
 
 在Pandas中，这种操作能够进一步被transform所取代。
 
-```python
+
+```python 
 pd.concat([irisdata, irisdata.groupby('class').transform('mean')], axis=1)[::20]
 ```
+
 
 #### 产生 MultiIndex（多列分组）后的数据透视表操作
 
@@ -904,28 +1100,34 @@ pd.concat([irisdata, irisdata.groupby('class').transform('mean')], axis=1)[::20]
 
 如果我们希望达到Excel的数据透视表的效果，行和列的索引自由交换，达到统计目的，究竟应该怎么办呢？
 
-```python
+
+```python 
 factor1 = np.random.randint(0, 3, 50)
 factor2 = np.random.randint(0, 2, 50)
 factor3 = np.random.randint(0, 3, 50)
 values = np.random.randn(50)
 ```
 
-```python
+
+```python 
 hierindexDF = pd.DataFrame({'F1': factor1, 'F2': factor2, 'F3': factor3, 'F4': values})
 hierindexDF.tail()
 ```
 
-```python
+
+```python 
 hierindexDF_gbsum = hierindexDF.groupby(['F1', 'F2', 'F3']).sum()
 hierindexDF_gbsum
 ```
 
+
 观察Index：
 
-```python
+
+```python 
 hierindexDF_gbsum.index
 ```
+
 
 unstack：
 
@@ -933,28 +1135,39 @@ unstack：
 * 有数字参数时，把指定位置的index置换到column上
 * 有列表参数时，依次把特定位置的index置换到column上
 
-```python
+
+```python 
 hierindexDF_gbsum.unstack()
 ```
 
-```python
+
+```python 
 hierindexDF_gbsum.unstack(0)
 ```
 
-```python
+
+```python 
 hierindexDF_gbsum.unstack(1)
 ```
 
-```python
+
+```python 
 hierindexDF_gbsum.unstack([2,0])
 ```
 
+
 更进一步的，stack的功能是和unstack对应，把column上的多级索引换到index上去
 
-```python
+
+```python 
 hierindexDF_gbsum.unstack([2, 0]).stack([1, 2])
 ```
 
-```python
+
+
+
+
+```python 
 
 ```
+

@@ -1,11 +1,10 @@
----
-slug: /
----
+
 ## Python的历史和发展
 
 Python 国内用户多读作“派桑”。
 
 在生活中,人们使用汉语、英语、法语、德语、日语等不同的语言跟不同国家的人进行交流。在使用计算机时,人们不能直接使用英语等人类的语言和计算机交流,而是使用编程语言(Programming Language)将人们的想法编写成程序,再通过执行程序控制计算机去解决各种问题。在计算机世界有着数量众多的编程语言,Python 就是其中一种简单易学的编程语言。在实际应用中,Python 被广泛用于人工智能、云计算、科学运算、Web 开发、网络爬虫、系统运维、图形 GUI、金融量化投资等众多领域。
+
 
 ### Python 的历史
 
@@ -14,6 +13,7 @@ Python 是由 Guido van Rossum 在 1989 年圣诞节期间,为了打发无聊的
 Python 语言的设计哲学是“优雅”、“明确”、“简单”。Python 开发者的哲学是“用一种方法,最好是只有一种方法来做一件事”。为了实现这一哲学,Python 语言致力于让自然语言的语法结构更加清晰明确。Python 语言的这一特点,使得学习 Python 语言非常容易,甚至对于没有编程经验的初学者也能很快上手开发程序。
 
 Python 语言的发展历史可以分为三个时期:
+
 
 - Python 1.x: 1994 年发布,这是 Python 语言的早期版本,它包括整数、浮点数、复数、字符串、列表、元组、字典等基本数据类型,以及 if、while、for 等控制语句,但没有函数、模块、类等高级语法。
 - Python 2.x: 2000 年发布,这是 Python 语言的中期版本,它在 1.x 的基础上增加了函数、模块、类等高级语法,但是保留了 1.x 版本的许多不合理的语法,所以 Python 2.x 版本有“坑人”的嫌疑。
@@ -50,7 +50,11 @@ Python 语言的应用领域非常广泛,主要有以下几个方面:
 
 Python 语言是目前最流行的编程语言之一,在 2018 年 8 月份,IEEE 发布了 2018 年 8 月编程语言排行榜,Python 语言排名第一,这是 Python 语言第一次登上榜首。Python 语言的发展前景非常广阔,Python 语言在人工智能、云计算、科学运算、Web 开发、网络爬虫、系统运维、图形 GUI、金融量化投资等众多领域都有着广泛的应用,Python 语言的发展前景非常广阔。
 
+
+
+
 ### 安装Python
+
 
 [Python官网下载网址](https://www.python.org/downloads/)
 
@@ -63,11 +67,12 @@ Python 语言是目前最流行的编程语言之一,在 2018 年 8 月份,IEEE 
 如果我们安装了中文语言包，那么我们的系统就可以识别与显示中文。
 如果我们安装了Python语言包，那么我们的系统就可以识别与运行Python程序。
 
+
 #### pip
 
 在部分系统预装版中，`python`名为`python3`，`pip`为`pip3`
 
-Python安装完成后，pip也会自动安装完成。
+Python安装完成后，pip也会自动安装完成。 
 
 后续代码示例以`python`和`pip`为例
 
@@ -87,25 +92,20 @@ Python安装完成后，pip也会自动安装完成。
 第二步：在第一步创建的文件夹下（C:\Users\Administrator\pip）创建pip.ini文件
 
 第三步：记事本编辑保存pip.ini文件内容为以下部分：
-
 ```
 [global]
 index-url = https://pypi.tuna.tsinghua.edu.cn/simple/
 [install]
 trusted-host = pypi.tuna.tsinghua.edu.cn
 ```
-
 - MAC永久使用：
-
 ```
 cd ~
 mkdir .pip
 cd .pip
 vi pip.conf
 ```
-
 写入以下内容
-
 ```
 [global]
 index-url = https://pypi.tuna.tsinghua.edu.cn/simple/
@@ -122,7 +122,6 @@ trusted-host = pypi.tuna.tsinghua.edu.cn
 - `pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt`
 
 requirements.txt参考内容
-
 ```bash
 opencv-python
 opencv-contrib-python
@@ -136,7 +135,9 @@ scikit-learn
 torch
 ```
 
+
 ### 安装Vscode
+
 
 [Vscdoe官网下载网址](https://code.visualstudio.com/download)
 
@@ -144,11 +145,16 @@ torch
 
 它不会运行程序，它需要安装相应的语言包才能运行程序。它可以编辑任何语言的程序，支持几乎所有主流的开发语言的语法高亮、智能代码补全等。安装过程全部勾选。
 
+
 - 注意与Visual Studio区别
 
 Visual Studio是一个集成的开发环境。
 
+
+
+
 #### Vscode安装插件
+
 
 Vscode左侧菜单通常为：文件、搜索、源代码管理、调试、应用商店等等（不同版本显示不同）
 
@@ -156,6 +162,8 @@ Vscode左侧菜单通常为：文件、搜索、源代码管理、调试、应�
 
 - 简体中文包：包名：`Chinese (Simplified) Language Pack for Visual Studio Code`
 - Python包：包名：`Python`
+
+
 
 #### 拓展：Vscode的个性化设置
 
@@ -167,8 +175,8 @@ Vscode左侧菜单通常为：文件、搜索、源代码管理、调试、应�
 
 安装成功后可以在Vscode的设置中搜索`format on save`，勾选即可。
 
-测试：在Vscode中新建一个xxx.py文件，输入以下内容：
 
+测试：在Vscode中新建一个xxx.py文件，输入以下内容：
 ```python
 print("hello world")
 ```
@@ -184,3 +192,4 @@ print("hello world")
 python xxx.py和python -m xxx.py是两种加载py文件的方式:
 1叫做直接运行
 2把模块当作脚本来启动(注意：但是__name__的值为'main' )
+
