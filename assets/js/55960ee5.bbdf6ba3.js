@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkjiangmiemie=self.webpackChunkjiangmiemie||[]).push([[4121],{8070:e=>{e.exports=JSON.parse('[{"label":"python","permalink":"/course/docs/tags/python","count":2},{"label":"\u9898\u5e93","permalink":"/course/docs/tags/\u9898\u5e93","count":2}]')}}]);
