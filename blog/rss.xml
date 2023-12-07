@@ -4,17 +4,17 @@
         <title>xde-web Blog</title>
         <link>https://xde-webclub.github.io/course/blog</link>
         <description>xde-web Blog</description>
-        <lastBuildDate>Wed, 06 Dec 2023 05:53:04 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 07 Dec 2023 02:25:25 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>zh-Hans</language>
         <item>
             <title><![CDATA[更新日记]]></title>
-            <link>https://xde-webclub.github.io/course/blog/2023年10月更新</link>
-            <guid>https://xde-webclub.github.io/course/blog/2023年10月更新</guid>
-            <pubDate>Wed, 06 Dec 2023 05:53:04 GMT</pubDate>
+            <link>https://xde-webclub.github.io/course/blog/2023年更新</link>
+            <guid>https://xde-webclub.github.io/course/blog/2023年更新</guid>
+            <pubDate>Thu, 07 Dec 2023 02:25:25 GMT</pubDate>
             <description><![CDATA[2023年10月提交初版教程]]></description>
-            <content:encoded><![CDATA[<p>2023年10月提交初版教程</p><p>2023年11月</p><ul><li><p>整理Python基础与进阶大纲，优化首页样式</p></li><li><p>修改课程内容为26节,只保留必要内容</p></li></ul>]]></content:encoded>
+            <content:encoded><![CDATA[<p>2023年10月提交初版教程</p><p>2023年11月</p><ul><li><p>整理Python基础与进阶大纲，优化首页样式</p></li><li><p>修改课程内容为26节,只保留必要内容</p></li></ul><p>2023年12月</p><ul><li><p>修改每节课程内容为上下两部分</p></li><li><p>添加对应的图示</p></li></ul>]]></content:encoded>
         </item>
     </channel>
 </rss>
