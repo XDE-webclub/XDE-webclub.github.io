@@ -1,7 +1,11 @@
+---
+sidebar_position: 0
+title: K-邻近算法
+---
 
 ## K-邻近算法
 
-这个算法既可以解决分类问题，也可以用于回归问题，但工业上用于分类的情况更多。 
+这个算法既可以解决分类问题，也可以用于回归问题，但工业上用于分类的情况更多。
 
 KNN先记录所有已知数据，再利用一个距离函数，
 
@@ -9,8 +13,7 @@ KNN先记录所有已知数据，再利用一个距离函数，
 
 最后按照这K组数据里最常见的类别预测该事件。
 
-
-```python 
+```python
 from sklearn.neighbors import KNeighborsClassifier
 import numpy as np
 
@@ -31,11 +34,9 @@ predicted_class = model.predict(new_data_point)
 print("预测类别:", predicted_class)
 ```
 
-
 ### 简单实战
 
-
-```python 
+```python
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import train_test_split
 
@@ -107,3 +108,25 @@ print(knn.predict(X_test))
 print(y_test)
 ```
 
+### 效果评估
+
+```python
+right = 0
+error = 0
+for i in zip(knn.predict(X_test),y_test):
+    #print(i)
+    if i[0] == i[1]:
+        right +=1
+    else:
+        error +=1
+print(right,error)
+print('正确率：{}%'.format(right/(right+error)*100))
+```
+
+### 效果评估的改进
+
+```python
+print('正确率：{}%'.format(knn.score(X_test,y_test)*100))
+
+# 正确率：100.0%
+```
