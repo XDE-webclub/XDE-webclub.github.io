@@ -5,6 +5,7 @@ Python 国内用户多读作“派桑”。
 
 在生活中,人们使用汉语、英语、法语、德语、日语等不同的语言跟不同国家的人进行交流。在使用计算机时,人们不能直接使用英语等人类的语言和计算机交流,而是使用编程语言(Programming Language)将人们的想法编写成程序,再通过执行程序控制计算机去解决各种问题。在计算机世界有着数量众多的编程语言,Python 就是其中一种简单易学的编程语言。在实际应用中,Python 被广泛用于人工智能、云计算、科学运算、Web 开发、网络爬虫、系统运维、图形 GUI、金融量化投资等众多领域。
 
+
 ### Python 的历史
 
 Python 是由 Guido van Rossum 在 1989 年圣诞节期间,为了打发无聊的圣诞节而编写的一个编程语言。现在,全世界差不多有 600 多种编程语言,但流行的编程语言也就那么 20 多种。Python 是最流行的编程语言之一,它的名字叫做 Python,是因为 Guido van Rossum 是一个 BBC 的喜剧节目——Monty Python's Flying Circus 的爱好者。
@@ -12,6 +13,7 @@ Python 是由 Guido van Rossum 在 1989 年圣诞节期间,为了打发无聊的
 Python 语言的设计哲学是“优雅”、“明确”、“简单”。Python 开发者的哲学是“用一种方法,最好是只有一种方法来做一件事”。为了实现这一哲学,Python 语言致力于让自然语言的语法结构更加清晰明确。Python 语言的这一特点,使得学习 Python 语言非常容易,甚至对于没有编程经验的初学者也能很快上手开发程序。
 
 Python 语言的发展历史可以分为三个时期:
+
 
 - Python 1.x: 1994 年发布,这是 Python 语言的早期版本,它包括整数、浮点数、复数、字符串、列表、元组、字典等基本数据类型,以及 if、while、for 等控制语句,但没有函数、模块、类等高级语法。
 - Python 2.x: 2000 年发布,这是 Python 语言的中期版本,它在 1.x 的基础上增加了函数、模块、类等高级语法,但是保留了 1.x 版本的许多不合理的语法,所以 Python 2.x 版本有“坑人”的嫌疑。
@@ -48,7 +50,11 @@ Python 语言的应用领域非常广泛,主要有以下几个方面:
 
 Python 语言是目前最流行的编程语言之一,在 2018 年 8 月份,IEEE 发布了 2018 年 8 月编程语言排行榜,Python 语言排名第一,这是 Python 语言第一次登上榜首。Python 语言的发展前景非常广阔,Python 语言在人工智能、云计算、科学运算、Web 开发、网络爬虫、系统运维、图形 GUI、金融量化投资等众多领域都有着广泛的应用,Python 语言的发展前景非常广阔。
 
+
+
+
 ### 安装Python
+
 
 [Python官网下载网址](https://www.python.org/downloads/)
 
@@ -61,11 +67,12 @@ Python 语言是目前最流行的编程语言之一,在 2018 年 8 月份,IEEE 
 如果我们安装了中文语言包，那么我们的系统就可以识别与显示中文。
 如果我们安装了Python语言包，那么我们的系统就可以识别与运行Python程序。
 
+
 #### pip
 
 在部分系统预装版中，`python`名为`python3`，`pip`为`pip3`
 
-Python安装完成后，pip也会自动安装完成。
+Python安装完成后，pip也会自动安装完成。 
 
 后续代码示例以`python`和`pip`为例
 
@@ -85,25 +92,20 @@ Python安装完成后，pip也会自动安装完成。
 第二步：在第一步创建的文件夹下（C:\Users\Administrator\pip）创建pip.ini文件
 
 第三步：记事本编辑保存pip.ini文件内容为以下部分：
-
 ```
 [global]
 index-url = https://pypi.tuna.tsinghua.edu.cn/simple/
 [install]
 trusted-host = pypi.tuna.tsinghua.edu.cn
 ```
-
 - MAC永久使用：
-
 ```
 cd ~
 mkdir .pip
 cd .pip
 vi pip.conf
 ```
-
 写入以下内容
-
 ```
 [global]
 index-url = https://pypi.tuna.tsinghua.edu.cn/simple/
@@ -120,16 +122,16 @@ trusted-host = pypi.tuna.tsinghua.edu.cn
 - `pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt`
 
 requirements.txt参考内容
-
 ```bash
-opencv-python
-opencv-contrib-python
-imageio
-scipy
-pillow
-numpy
-matplotlib
-pandas
-scikit-learn
-tensorflow
+opencv-python==4.8.1.78
+opencv-contrib-python==4.8.1.78
+imageio==2.19.3
+scipy==1.11.2
+pillow==9.5.0
+numpy==1.24.3
+matplotlib==3.7.1
+pandas==2.0.2
+scikit-learn==1.3.0
+tensorflow==2.15.0
 ```
+
