@@ -20,6 +20,7 @@ function MyHero() {
           加入我们让我们一起探索未知的领域！<br />
           挑战自我，共同成长!<br />
           <br />
+          在线刷题：<a href='https://jiangmiemie.com/minileetcode/'>minileetcode</a><br />
           在线学习：<a href={siteConfig.baseUrl + 'docs'}>Python人工智能教程</a><br />
           在线体验：<a href={siteConfig.baseUrl + 'tensorflow.html'}>基于tensorflow的KNN分类器</a><br />
         </p>
