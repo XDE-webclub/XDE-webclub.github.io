@@ -20,7 +20,7 @@ function MyHero() {
           加入我们让我们一起探索未知的领域！<br />
           挑战自我，共同成长!<br />
           <br />
-          在线刷题：<a href='https://jiangmiemie.com/minileetcode/'>minileetcode</a><br />
+          在线刷题：<a href='https://xde-webclub.github.io/exercises/'>minileetcode</a><br />
           在线学习：<a href={siteConfig.baseUrl + 'docs'}>Python人工智能教程</a><br />
           在线体验：<a href={siteConfig.baseUrl + 'tensorflow.html'}>基于tensorflow的KNN分类器</a><br />
         </p>
@@ -42,23 +42,6 @@ export default function Home() {
       title={siteConfig.title}
     >
       <MyHero />
-      {/* <div class={styles.footers} >
-        <div class={styles.footer} >
-          <div>
-            <a href="https://web.archive.org/web/20230609185132/https://creativecommons.org/licenses/by-nc-sa/4.0/"><h4>CC BY-NC-SA 4.0</h4></a>
-            <span> 2020 年至今 © jiangmiemie</span>
-          </div>
-          <div>
-            <a target="_blank" rel="noopener noreferrer" href="https://github.com/jiangmiemie"><svg src={git} class={styles.footerlogo} alt="github" /></a>
-            <a target="_blank" rel="noopener noreferrer" href="mailto:jiangyangcreate@gmail.com"><svg src={email} class={styles.footerlogo} alt="email" /></a>
-            <a target="_blank" rel="noopener noreferrer" href="https://www.travellings.cn/go.html"><svg src={travellings} class={styles.footerlogo} alt="travellings" /></a>
-          </div>
-
-                      <span>
-
-            </span>
-        </div>
-      </div> */}
     </Layout>
   )
 }

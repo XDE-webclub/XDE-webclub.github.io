@@ -22,7 +22,7 @@ const config = {
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'jiangmiemie', // Usually your GitHub org/user name.
+  organizationName: 'XDE-web', // Usually your GitHub org/user name.
   projectName: 'DocusaurusBlog', // Usually your repo name.
   deploymentBranch: 'gh-pages',
   onBrokenLinks: 'throw',
@@ -37,10 +37,6 @@ const config = {
           remarkPlugins: [remarkMath],
           rehypePlugins: [rehypeKatex],
           sidebarPath: require.resolve('./sidebars.js'),
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          // editUrl:
-          //   'https://github.com/jiangmiemie/blog/blob/master',
         },
 
         blog: false,
