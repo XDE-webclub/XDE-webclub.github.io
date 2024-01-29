@@ -27,26 +27,6 @@ const config = {
   deploymentBranch: 'gh-pages',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
-
-  // Even if you don't use internalization, you can use this field to set useful
-  // metadata like html lang. For example, if your site is Chinese, you may want
-  // to replace "en" with "zh-Hans".
-  i18n: {
-    defaultLocale: 'zh-Hans',
-    locales: ['zh-Hans'],
-    path: 'i18n',
-    localeConfigs: {
-      zh: {
-        label: '中文',
-        direction: 'ltr',
-        htmlLang: '	zh-Hans',
-        calendar: 'gregory',
-        path: 'zh-Hans',
-      },
-
-    },
-  },
-
   presets: [
     [
       'classic',
@@ -63,15 +43,7 @@ const config = {
           //   'https://github.com/jiangmiemie/blog/blob/master',
         },
 
-        blog: {
-          path: "blog",
-          routeBasePath: "blog",
-          showReadingTime: true,
-          postsPerPage: 'ALL',
-          blogSidebarCount: 'ALL',
-          // editUrl:
-          //   'https://github.com/jiangmiemie/blog/blob/master',
-        },
+        blog: false,
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
@@ -101,13 +73,6 @@ const config = {
             position: 'left',
             label: 'Python',
           },
-
-          {
-            to: "/blog",
-            position: 'left',
-            label: '博客',
-          },
-
         ],
       },
 

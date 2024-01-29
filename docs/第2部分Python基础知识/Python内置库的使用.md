@@ -28,13 +28,13 @@ Python标准库：Python内置的库，不需要安装，直接导入即可使�
 
 导入该模块：
 
-```python
+```python showLineNumbers
 import os
 ```
 
 产生文件：
 
-```python
+```python showLineNumbers
 f = open('test.file', 'w')
 f.close()
 print('test.file' in os.listdir(os.curdir))
@@ -42,13 +42,13 @@ print('test.file' in os.listdir(os.curdir))
 
 重命名文件:
 
-```python
+```python showLineNumbers
 os.rename("test.file", "test.new.file")
 print("test.file" in os.listdir(os.curdir))
 print("test.new.file" in os.listdir(os.curdir))
 ```
 
-```python
+```python showLineNumbers
 # 删除文件
 os.remove("test.new.file")
 ```
@@ -58,11 +58,11 @@ os.remove("test.new.file")
 - windows 为 \r\n
 - unix为 \n
 
-```python
+```python showLineNumbers
 os.linesep
 ```
 
-```python
+```python showLineNumbers
 # 当前操作系统的路径分隔符：
 os.sep
 ```
@@ -72,19 +72,19 @@ os.sep
 - windows 为 ;
 - unix 为:
 
-```python
+```python showLineNumbers
 os.pathsep
 ```
 
 os.environ 是一个存储所有环境变量的值的字典，可以修改。
 
-```python
+```python showLineNumbers
 os.environ
 ```
 
 ### os.path 模块
 
-```python
+```python showLineNumbers
 import os.path
 ```
 
@@ -95,7 +95,7 @@ import os.path
 
 windows系统：
 
-```python
+```python showLineNumbers
 print(os.path.isfile("C:/Windows"))
 print(os.path.isdir("C:/Windows"))
 print(os.path.exists("C:/Windows"))
@@ -104,7 +104,7 @@ print(os.path.isabs("C:/Windows"))
 
 unix系统：
 
-```python
+```python showLineNumbers
 print(os.path.isfile("/Users"))
 print(os.path.isdir("/Users"))
 print(os.path.exists("/Users"))
@@ -116,18 +116,18 @@ print(os.path.isabs("/Users"))
 - os.path.split(path)：拆分一个路径为 (head, tail) 两部分
 - os.path.join(a, *p)：使用系统的路径分隔符，将各个部分合成一个路径
 
-```python
+```python showLineNumbers
 head, tail = os.path.split("c:/tem/b.txt")
 print(head, tail)
 ```
 
-```python
+```python showLineNumbers
 a = "c:/tem"
 b = "b.txt"
 os.path.join(a, b)
 ```
 
-```python
+```python showLineNumbers
 def get_files(dir_path):
     '''
     列出文件夹下的所有文件
@@ -143,7 +143,7 @@ def get_files(dir_path):
 
 列出当前文件夹的所有文件：
 
-```python
+```python showLineNumbers
 dir = os.curdir
 get_files(dir)
 ```
@@ -161,13 +161,13 @@ exec(statement, glob, local)
 
 使用 exec 可以添加修改原有的变量:
 
-```python
+```python showLineNumbers
 a = 1
 exec('b = a + 10')
 print(b)
 ```
 
-```python
+```python showLineNumbers
 local = dict(a=2)
 glob = {}
 exec("b = a+1", glob, local)
@@ -178,20 +178,20 @@ print(local)
 compile 函数生成 byte code：
 compile(str, filename, mode)
 
-```python
+```python showLineNumbers
 a = 1
 b = compile('a+2', '', 'eval')
 print(eval(b))
 ```
 
-```python
+```python showLineNumbers
 a = 1
 c = compile("b=a+4", "", 'exec')
 exec(c)
 print(b)
 ```
 
-```python
+```python showLineNumbers
 # abstract syntax trees
 import ast
 
@@ -199,14 +199,14 @@ tree = ast.parse('a+10', '', 'eval')
 ast.dump(tree)
 ```
 
-```python
+```python showLineNumbers
 a = 1
 c = compile(tree, '', 'eval')
 d = eval(c)
 print(d)
 ```
 
-```python
+```python showLineNumbers
 # 安全的使用方法 literal_eval ，只支持基本值的操作：
 b = ast.literal_eval('[10.0, 2, True, "foo"]')
 print(b)

@@ -17,7 +17,7 @@ Python的底层是C写的（实际上大部分高级编程语言都是C写的）
 
 点击“行号”前的位置，就可以给代码行打上红色的“断点”。
 
-```Python
+```python showLineNumbers
 def mynameis(x):
     print('my name is ',end='')
     print(x,end='')# 断点

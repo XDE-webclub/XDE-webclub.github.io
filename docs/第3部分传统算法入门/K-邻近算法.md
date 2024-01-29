@@ -1,5 +1,5 @@
 ---
-sidebar_position: 0
+sidebar_position: 1
 title: K-邻近算法
 ---
 
@@ -7,13 +7,13 @@ title: K-邻近算法
 
 这个算法既可以解决分类问题，也可以用于回归问题，但工业上用于分类的情况更多。
 
-KNN先记录所有已知数据，再利用一个距离函数，
+KNN 先记录所有已知数据，再利用一个距离函数，
 
-找出已知数据中距离未知事件最近的K组数据，
+找出已知数据中距离未知事件最近的 K 组数据，
 
-最后按照这K组数据里最常见的类别预测该事件。
+最后按照这 K 组数据里最常见的类别预测该事件。
 
-```python
+```python showLineNumbers
 from sklearn.neighbors import KNeighborsClassifier
 import numpy as np
 
@@ -36,7 +36,7 @@ print("预测类别:", predicted_class)
 
 ### 简单实战
 
-```python
+```python showLineNumbers
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import train_test_split
 
@@ -110,7 +110,7 @@ print(y_test)
 
 ### 效果评估
 
-```python
+```python showLineNumbers
 right = 0
 error = 0
 for i in zip(knn.predict(X_test),y_test):
@@ -125,8 +125,111 @@ print('正确率：{}%'.format(right/(right+error)*100))
 
 ### 效果评估的改进
 
-```python
+```python showLineNumbers
 print('正确率：{}%'.format(knn.score(X_test,y_test)*100))
 
 # 正确率：100.0%
+```
+
+### 实时分类器
+
+#### 描述
+
+KNN 算法先记录所有已知数据，再利用一个距离函数，找出已知数据中距离未知事件最近的 K 组数据，最后按照这 K 组数据里最常见的类别预测该事件。可以解决分类问题。
+
+请编写一段程序读取用户的摄像头，让用户通过按键或点击的方式实时训练并查看当前摄像头的预测结果。
+
+#### 题解
+
+```python showLineNumbers
+'''
+新建`.py`并将下方代码复制进去，确保已经安装好了下方的模块库。
+
+pip install opencv-python
+pip install tensorflow
+
+
+1. 等待模型加载（加载完成后会弹出摄像头）
+
+2. 按下键盘的A则获取当前摄像头截图加入A训练集
+
+3. 以此类推添加B、C训练集
+
+4. 观察屏幕输出的预测结果
+'''
+import cv2
+import tensorflow as tf
+from tensorflow.keras.applications import MobileNet
+from tensorflow.keras.preprocessing import image
+from tensorflow.keras.applications.mobilenet import preprocess_input
+from tensorflow.keras.models import Model
+import numpy as np
+
+
+class KNNClassifier:
+    def __init__(self):
+        self.examples = {"A": [], "B": [], "C": []}
+
+    def add_example(self, activation, class_id):
+        self.examples[class_id].append(activation)
+
+    def predict_class(self, activation):
+        distances = {}
+        for class_id, examples in self.examples.items():
+            distances[class_id] = np.mean(
+                [np.linalg.norm(act - activation) for act in examples]
+            )
+
+        predicted_class = min(distances, key=distances.get)
+        confidence = 1 / (1 + distances[predicted_class])
+        return predicted_class, confidence
+
+
+def main():
+    classifier = KNNClassifier()
+    webcam = cv2.VideoCapture(0)
+
+    print("Loading MobileNet...")
+    # Load the MobileNet model.
+    base_model = tf.keras.applications.MobileNet(weights="imagenet")
+    model = Model(
+        inputs=base_model.input, outputs=base_model.get_layer("conv_preds").output
+    )
+
+    print("Successfully loaded model")
+
+    classes = ["A", "B", "C"]
+
+    while True:
+        ret, frame = webcam.read()
+        frame = cv2.resize(frame, (224, 224))
+        img = image.img_to_array(frame)
+        img = np.expand_dims(img, axis=0)
+        img = preprocess_input(img)
+
+        activation = model.predict(img)
+
+        key = cv2.waitKey(1)
+        if key == ord("a"):
+            classifier.add_example(activation, "A")
+        elif key == ord("b"):
+            classifier.add_example(activation, "B")
+        elif key == ord("c"):
+            classifier.add_example(activation, "C")
+
+        if len(classifier.examples["A"]) > 0:
+            predicted_class, confidence = classifier.predict_class(activation)
+            print(f"Prediction: {predicted_class}, Confidence: {confidence}")
+
+        cv2.imshow("Webcam", frame)
+
+        if key == 27:  # ESC key to break from the loop
+            break
+
+    webcam.release()
+    cv2.destroyAllWindows()
+
+
+main()
+
 ```

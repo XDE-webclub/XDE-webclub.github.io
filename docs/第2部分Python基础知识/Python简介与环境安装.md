@@ -163,7 +163,7 @@ Vscode左侧菜单通常为：文件、搜索、源代码管理、调试、应�
 
 测试：在Vscode中新建一个xxx.py文件，输入以下内容：
 
-```python
+```python showLineNumbers
 print("hello world")
 ```
 

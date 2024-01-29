@@ -54,7 +54,7 @@ $$
 $$
 
 
-```python 
+```python showLineNumbers 
 import numpy
 
 # 确保绘图在此nb中进行，而不是在外部窗口中
@@ -198,7 +198,7 @@ print(right / (right + error))
 - 逐一识别，返回结果
 
 
-```python 
+```python showLineNumbers 
 from PIL import ImageFont,Image,ImageDraw
 # 生成一个验证码
 c_chars = "0 1 2 3 4"
@@ -256,7 +256,7 @@ print(out)
 <details>
 
 
-```python 
+```python showLineNumbers 
 # 这里我检查了转化后8*8的数字3的图片，对比了手写数字3和手写数字8，
 # 我认为生成的数字3与手写8更接近相对于与手写3
 # 所以我认为的解决的方案是：给模型再喂一些生成数字3的样本。
