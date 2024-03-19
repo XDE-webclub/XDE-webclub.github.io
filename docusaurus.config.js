@@ -46,9 +46,27 @@ const config = {
       }),
     ],
   ],
+  plugins: [
+    [
+      "@docusaurus/plugin-content-docs",
+      {
+        id: "project",
+        path: "project",
+        routeBasePath: "project",
+        sidebarPath: require.resolve("./sidebars.js"),
+        remarkPlugins: [remarkMath],
+        rehypePlugins: [rehypeKatex],
+      },
+    ],
 
+  ],  // 开启markdown的mermaid功能 , live-codeblock
+  themes: ["@docusaurus/theme-mermaid", "@docusaurus/theme-live-codeblock"],
+  markdown: {
+    mermaid: true,
+  },
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
+
     ({
       // Replace with your project's social card
       image: 'img/github.svg',
@@ -68,6 +86,11 @@ const config = {
             to: "/docs",
             position: 'left',
             label: 'Python',
+          },
+          {
+            to: "/project",
+            position: 'left',
+            label: 'Project',
           },
         ],
       },
