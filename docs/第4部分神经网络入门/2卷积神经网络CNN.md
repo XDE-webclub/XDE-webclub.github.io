@@ -232,8 +232,8 @@ X = X.astype(np.float32) / 16.0  # 归一化
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 # 转换为PyTorch张量
-train_dataset = TensorDataset(torch.tensor(X_train), torch.tensor(y_train))
-test_dataset = TensorDataset(torch.tensor(X_test), torch.tensor(y_test))
+train_dataset = TensorDataset(torch.tensor(X_train), torch.tensor(y_train).long())
+test_dataset = TensorDataset(torch.tensor(X_test), torch.tensor(y_test).long())
 
 train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
 test_loader = DataLoader(test_dataset, batch_size=32, shuffle=False)
