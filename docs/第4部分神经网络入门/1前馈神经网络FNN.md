@@ -28,6 +28,15 @@ BP神经网络是可以解决很多问题的，比较万能，但我们不会所
 当电信号在神经元积累到超过阈值时，就会触发神经冲动，将电信号传给其它神经元。                                 
 正是根据这个思路，就构造出了以上的神经网络结构。
 
+:::tip
+[动画演示](https://www.3blue1brown.com/topics/neural-networks)
+:::
+<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=15532370&bvid=BV1bx411M7Zx&cid=25368631&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+
+
+<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=16144388&bvid=BV1Ux411j7ri&cid=26347539&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+
+
 ### 简单示例
 
 一张28*28的图片可以抽象为一个784维的向量，每个像素点的值就是向量的一个分量。我们可以将这个向量作为输入，通过神经网络，输出一个10维的向量，每个分量代表图片属于某个数字的概率。

@@ -1,3 +1,4 @@
+## 卷积神经网络CNN
 
 ### 原理
 
@@ -7,12 +8,141 @@
 
 新的图像可以用更少的数据反应出图像的特征。这个过程就是特征提取。
 
-#### 卷积核工作原理
 
-![img](/imgs/卷积神经网络-卷积核工作原理.png)
 
-![img](/imgs/卷积神经网络-卷积核工作原理动画.gif)
+我们从一个6x6的矩阵开始：
 
+$$
+\mathbf{A} = \begin{bmatrix}
+a_{11} & a_{12} & a_{13} & a_{14} & a_{15} & a_{16} \\
+a_{21} & a_{22} & a_{23} & a_{24} & a_{25} & a_{26} \\
+a_{31} & a_{32} & a_{33} & a_{34} & a_{35} & a_{36} \\
+a_{41} & a_{42} & a_{43} & a_{44} & a_{45} & a_{46} \\
+a_{51} & a_{52} & a_{53} & a_{54} & a_{55} & a_{56} \\
+a_{61} & a_{62} & a_{63} & a_{64} & a_{65} & a_{66} \\
+\end{bmatrix}
+$$
+
+
+
+我们的卷积核是一个3x3的矩阵：
+
+$$
+\mathbf{K} = \begin{bmatrix}
+k_{11} & k_{12} & k_{13} \\
+k_{21} & k_{22} & k_{23} \\
+k_{31} & k_{32} & k_{33} \\
+\end{bmatrix}
+$$
+
+
+我们假设卷积核位于原始矩阵的左上角，覆盖的区域如下：
+
+$$
+\begin{bmatrix}
+a_{11} & a_{12} & a_{13} \\
+a_{21} & a_{22} & a_{23} \\
+a_{31} & a_{32} & a_{33} \\
+\end{bmatrix}
+$$
+
+此时，输出矩阵的第一个元素$O_{11}$的计算为：
+
+$$
+O_{11} = k_{11} \cdot a_{11} + k_{12} \cdot a_{12} + k_{13} \cdot a_{13} \\ 
++ k_{21} \cdot a_{21} + k_{22} \cdot a_{22} + k_{23} \cdot a_{23} \\ 
++ k_{31} \cdot a_{31} + k_{32} \cdot a_{32} + k_{33} \cdot a_{33}
+$$
+
+整个输出矩阵
+
+卷积核在整个6x6矩阵上滑动(从左至右，从上至下)，生成一个4x4的输出矩阵。输出矩阵的每个元素都按照上述方式计算。
+
+<details>
+<summary>点击查看卷积核动画</summary>
+``` jsx live
+// 你可以尝试更改矩阵尺寸与卷积核的尺寸来感受卷积过程
+function example(props) {
+  // 使用 XPath 查询选择输出框
+  const xpathSelector =
+    "/html/body/div/div[2]/div/div/main/div/div/div/div/article/div[2]/div[1]/div[4]";
+  const myElement = document.evaluate(
+    xpathSelector,
+    document,
+    null,
+    XPathResult.FIRST_ORDERED_NODE_TYPE,
+    null
+  ).singleNodeValue;
+  // 矩阵尺寸
+  const matrixSize = 6;
+  // 卷积核尺寸
+  const kernelSize = 3;
+  const matrix = Array.from({ length: matrixSize }, (_, i) =>
+    Array.from({ length: matrixSize }, (_, j) => `a${i + 1}${j + 1}`)
+  );
+  const [position, setPosition] = useState([0, 0]);
+  useEffect(() => {
+    const positions = [];
+    for (let i = 0; i <= matrixSize - kernelSize; i++) {
+      for (let j = 0; j <= matrixSize - kernelSize; j++) {
+        positions.push([i, j]);
+      }
+    }
+
+    let index = 0;
+    const interval = setInterval(() => {
+      setPosition(positions[index]);
+      index = (index + 1) % positions.length;
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundColor: '#f0f0f0' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: `repeat(${matrixSize}, 50px)`, gridGap: '5px', position: 'relative' }}>
+        {matrix.map((row, i) =>
+          row.map((cell, j) => (
+            <div
+              key={`${i}-${j}`}
+              style={{
+                width: '50px',
+                height: '50px',
+                backgroundColor: '#fff',
+                border: '1px solid #ccc',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                fontSize: '18px',
+                backgroundColor: i >= position[0] && i < position[0] + kernelSize && j >= position[1] && j < position[1] + kernelSize ? 'yellow' : '#fff'
+              }}
+            >
+              {cell}
+            </div>
+          ))
+        )}
+      </div>
+    </div>
+  );
+}
+```
+</details>
+
+
+最终输出矩阵$\mathbf{O}$为：
+
+$$
+\mathbf{O} = \begin{bmatrix}
+O_{11} & O_{12} & O_{13} & O_{14} \\
+O_{21} & O_{22} & O_{23} & O_{24} \\
+O_{31} & O_{32} & O_{33} & O_{34} \\
+O_{41} & O_{42} & O_{43} & O_{44} \\
+\end{bmatrix}
+$$
+
+每个$O_{ij}$的具体计算方法如前所述，通过卷积核在原始矩阵上的滑动和计算得到。
+
+通过这个例子，可以清晰地看到卷积核是如何对矩阵进行操作并生成输出的。
 
 ### 常见卷积核及用途
 
@@ -177,36 +307,7 @@ plt.show()
 
 ### 卷积神经网络对手写数字识别
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-
 #### 导入库和数据预处理
-
-<Tabs>
-  <TabItem value="tf" label="TensorFlow" default>
-
-```python
-import tensorflow as tf
-from tensorflow.keras import layers, models
-from sklearn.datasets import load_digits
-from sklearn.model_selection import train_test_split
-import numpy as np
-
-# 加载数据
-digits = load_digits()
-X = digits.images
-y = digits.target
-
-# 数据预处理
-X = X[..., np.newaxis]  # 增加通道维度 (n_samples, 8, 8, 1)
-X = X.astype(np.float32) / 16.0  # 归一化
-
-# 划分训练集和测试集
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-```
-
-  </TabItem>
-  <TabItem value="torch" label="Pytorch">
 
 ```python
 import torch
@@ -239,29 +340,9 @@ train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
 test_loader = DataLoader(test_dataset, batch_size=32, shuffle=False)
 ```
 
-  </TabItem>
-</Tabs>
 
 #### 定义模型
 
-<Tabs>
-  <TabItem value="tf" label="TensorFlow" default>
-
-```python
-model = models.Sequential()
-model.add(layers.Conv2D(16, (3, 3), activation='relu', input_shape=(8, 8, 1), padding='same'))
-model.add(layers.MaxPooling2D((2, 2)))
-model.add(layers.Conv2D(32, (3, 3), activation='relu', padding='same'))
-model.add(layers.MaxPooling2D((2, 2)))
-model.add(layers.Flatten())
-model.add(layers.Dense(128, activation='relu'))
-model.add(layers.Dense(10, activation='softmax'))
-
-model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
-```
-
-  </TabItem>
-  <TabItem value="torch" label="Pytorch">
 
 ```python
 class SimpleCNN(nn.Module):
@@ -284,25 +365,8 @@ class SimpleCNN(nn.Module):
 model = SimpleCNN()
 ```
 
-  </TabItem>
-</Tabs>
 
 #### 训练和评估模型
-
-<Tabs>
-  <TabItem value="tf" label="TensorFlow" default>
-
-```python
-# 训练
-model.fit(X_train, y_train, epochs=10, batch_size=32, validation_split=0.1)
-
-# 评估
-test_loss, test_acc = model.evaluate(X_test, y_test)
-print(f'Test accuracy: {test_acc}')
-```
-
-  </TabItem>
-  <TabItem value="torch" label="Pytorch">
 
 ```python
 criterion = nn.CrossEntropyLoss()
@@ -335,6 +399,3 @@ with torch.no_grad():
 
 print(f'Accuracy: {100 * correct / total}%')
 ```
-
-  </TabItem>
-</Tabs>
