@@ -1,4 +1,5 @@
 ---
+slug: /
 sidebar_position: 0
 title: Python简介与环境安装
 ---

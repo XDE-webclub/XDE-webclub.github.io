@@ -45,19 +45,6 @@ const config = {
         },
       }),
     ],
-  ],
-  plugins: [
-    [
-      "@docusaurus/plugin-content-docs",
-      {
-        id: "project",
-        path: "project",
-        routeBasePath: "project",
-        sidebarPath: require.resolve("./sidebars.js"),
-        remarkPlugins: [remarkMath],
-        rehypePlugins: [rehypeKatex],
-      },
-    ],
 
   ],  // 开启markdown的mermaid功能 , live-codeblock
   themes: ["@docusaurus/theme-mermaid", "@docusaurus/theme-live-codeblock"],
@@ -86,11 +73,6 @@ const config = {
             to: "/docs",
             position: 'left',
             label: 'Python',
-          },
-          {
-            to: "/project",
-            position: 'left',
-            label: 'Project',
           },
         ],
       },
