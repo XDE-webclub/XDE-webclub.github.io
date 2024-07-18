@@ -19,7 +19,10 @@ const config = {
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: "/",
-
+  i18n: {
+    defaultLocale: "zh",
+    locales: ["en", "zh"],
+  },
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: "XDE-web", // Usually your GitHub org/user name.
@@ -57,7 +60,7 @@ const config = {
       indexPages:true,
       removeDefaultStemmer:true,
       highlightSearchTermsOnTargetPage:true,
-      language: "zh",
+      language: ["en", "zh"],
     }),
   ],
 ],
